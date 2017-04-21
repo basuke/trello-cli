@@ -1,0 +1,44 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * Trello CLI application
+ */
+
+require dirname(__DIR__). '/vendor/autoload.php';
+
+use Clim\App;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Style\SymfonyStyle;
+
+class SymfonyOutputMiddleware
+{
+    protected $c;
+
+    public function __construct($c)
+    {
+        $this->c = $c;
+    }
+
+    public function __invoke($context, $next)
+    {
+        $this->c['output'] = function ($c) {
+            return new SymfonyStyle(new ArgvInput(), new ConsoleOutput());
+        };
+
+        return $next($context);
+    }
+}
+
+$app = new App(require "setup.php");
+
+$app->add(\TrelloApp\Setup::class);
+$app->add(SymfonyOutputMiddleware::class);
+
+$app->task(function($opts, $args) {
+    echo "Hello\n";
+});
+
+$app->run();
+

@@ -1,0 +1,37 @@
+{
+    "name": "basuke/trello-cli",
+    "description": "Trello command line interface",
+    "type": "project",
+    "require": {
+        "climphp/clim": "^1.4",
+        "stevenmaguire/trello-php": "^0.4.1",
+        "symfony/debug": "^3.2",
+        "symfony/console": "^3.2",
+        "symfony/var-dumper": "^3.2",
+        "symfony/dotenv": "dev-master"
+    },
+    "require-dev": {
+        "codeception/codeception": "^2.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Basuke Suzuki",
+            "email": "basuke@siesta.co.jp"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "": "src"
+        }
+    },
+    "scripts": {
+        "test": [
+            "@unittest"
+        ],
+        "unittest": "codecept run unit",
+        "codecept": "codecept",
+        "cest": "codecept generate:cest unit",
+        "cept": "codecept generate:cept unit"
+    }
+}
